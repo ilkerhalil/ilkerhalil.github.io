@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlker Halil Türer - Software Architect & DevOps Leader</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            color: #ffd700;
+        }
+
+        .content-section {
+            background: white;
+            margin: 40px 0;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .summary {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .competencies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .competency {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .experience-item {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .company-info {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .job-duration {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .achievements {
+            list-style: none;
+        }
+
+        .achievements li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+            color: #555;
+        }
+
+        .achievements li::before {
+            content: '🚀';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 4px solid #667eea;
+        }
+
+        .skill-category h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .achievement-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .content-section {
+                margin: 20px 0;
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .job-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>İlker Halil Türer</h1>
+            <p class="subtitle">Software Architect & DevOps Leader</p>
+            <div class="contact-info">
+                <a href="mailto:ilkerhalil@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    ilkerhalil@gmail.com
+                </a>
+                <a href="tel:+905422476935" class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    542-247-6935
+                </a>
+                <a href="https://www.linkedin.com/in/ilker-halil-turer/" class="contact-item" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/ilkerhalil" class="contact-item" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+            </div>
+        </div>
+
+        <!-- Professional Summary -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-user-tie"></i>
+                Professional Summary
+            </h2>
+            <p class="summary">
+                Senior Software Architect with <strong>14+ years of experience</strong> leading digital transformation initiatives and building scalable enterprise solutions. Proven track record of migrating legacy systems to modern platforms, reducing maintenance costs by 40%, and mentoring 20+ developers. Expert in .NET Core, Python, Kubernetes, and cloud technologies with strong focus on DevOps practices and continuous improvement.
+            </p>
+            <div class="competencies">
+                <span class="competency">Software Architecture Design</span>
+                <span class="competency">Team Leadership</span>
+                <span class="competency">Legacy System Migration</span>
+                <span class="competency">DevOps Implementation</span>
+                <span class="competency">Performance Optimization</span>
+            </div>
+        </div>
+
+        <!-- Professional Experience -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase"></i>
+                Professional Experience
+            </h2>
+            
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Software Architect</div>
+                        <div class="company-info">Intertech • Remote, Istanbul</div>
+                    </div>
+                    <div class="job-duration">10/2023 - Present</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Led enterprise modernization</strong> of 5 legacy systems serving 100K+ users, improving performance by 60%</li>
+                    <li><strong>Architected microservices platform</strong> using .NET Core and Kubernetes, reducing deployment time from 4 hours to 15 minutes</li>
+                    <li><strong>Mentored team of 8 developers</strong> on modern development practices, achieving 95% code quality score</li>
+                    <li><strong>Streamlined CI/CD processes</strong> implementing automated testing, reducing bug reports by 45%</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior Software Engineer</div>
+                        <div class="company-info">Kavaken</div>
+                    </div>
+                    <div class="job-duration">05/2022 - 10/2023</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Developed integrated solutions</strong> for enterprise clients, resulting in $2M+ annual revenue increase</li>
+                    <li><strong>Optimized database performance</strong> reducing query response time by 70%</li>
+                    <li><strong>Led client technical presentations</strong> securing 3 major contracts worth $500K+</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Software Architect</div>
+                        <div class="company-info">Morhipo</div>
+                    </div>
+                    <div class="job-duration">07/2021 - 05/2022</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Designed scalable e-commerce architecture</strong> handling 50K+ concurrent users during peak times</li>
+                    <li><strong>Implemented migration strategies</strong> for seamless platform upgrades with zero downtime</li>
+                    <li><strong>Created development frameworks</strong> accelerating project delivery by 30%</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Lead DevOps Engineer</div>
+                        <div class="company-info">Trlogic</div>
+                    </div>
+                    <div class="job-duration">01/2021 - 07/2021</div>
+                </div>
+                <ul class="achievements">
+                    <li><strong>Promoted DevOps adoption</strong> increasing developer productivity by 40% through automated CI/CD pipelines</li>
+                    <li><strong>Built monitoring infrastructure</strong> using Prometheus and Grafana, reducing incident response time by 50%</li>
+                    <li><strong>Managed multi-cloud deployment</strong> across AWS, Azure, and GCP environments</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                Technical Skills
+            </h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Programming & Frameworks</h4>
+                    <div class="skill-list">
+                        <span class="skill-tag">.NET Core</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">ASP.NET MVC</span>
+                        <span class="skill-tag">WCF</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Cloud & Infrastructure</h4>
+                    <div class="skill-list">
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">GCP</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">OpenShift</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">Helm</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Databases & Caching</h4>
+                    <div class="skill-list">
+                        <span class="skill-tag">SQL Server</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Oracle</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Elasticsearch</span>
+                        <span class="skill-tag">Memcached</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>DevOps & Monitoring</h4>
+                    <div class="skill-list">
+                        <span class="skill-tag">Jenkins</span>
+                        <span class="skill-tag">GitLab CI</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">Prometheus</span>
+                        <span class="skill-tag">Grafana</span>
+                        <span class="skill-tag">ELK Stack</span>
+                        <span class="skill-tag">Azure Pipelines</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <i class="fas fa-trophy"></i>
+                Key Achievements
+            </h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-number">40%</div>
+                    <div class="achievement-text">Reduced system maintenance costs</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-number">60%</div>
+                    <div class="achievement-text">Improved application performance</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-number">20+</div>
+                    <div class="achievement-text">Developers mentored</div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-number">5</div>
+                    <div class="achievement-text">Enterprise applications migrated</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.content-section');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = '0.2s';
+                        entry.target.style.animationFillMode = 'both';
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Add hover effect to skill tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
