@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <title>İlker Halil Türer - Software Architect & DevOps Leader</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -213,9 +213,17 @@
             transition: all var(--transition-normal);
             box-shadow: var(--glass-shadow);
             white-space: nowrap;
+            /* Touch-friendly */
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        .nav-item:hover {
+        .nav-item:hover,
+        .nav-item:active {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
@@ -241,9 +249,15 @@
             align-items: center;
             justify-content: center;
             box-shadow: var(--glass-shadow);
+            /* Touch-friendly */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-height: 44px;
+            min-width: 44px;
         }
 
-        .theme-toggle:hover {
+        .theme-toggle:hover,
+        .theme-toggle:active {
             transform: scale(1.1);
             background: rgba(255, 255, 255, 0.2);
         }
@@ -359,6 +373,13 @@
             transition: all var(--transition-normal);
             position: relative;
             overflow: hidden;
+            /* Touch-friendly */
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .cta-primary {
@@ -369,7 +390,8 @@
             box-shadow: var(--glass-shadow);
         }
 
-        .cta-primary:hover {
+        .cta-primary:hover,
+        .cta-primary:active {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
             box-shadow: var(--shadow-xl);
@@ -381,7 +403,8 @@
             color: white;
         }
 
-        .cta-secondary:hover {
+        .cta-secondary:hover,
+        .cta-secondary:active {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.5);
         }
@@ -407,6 +430,14 @@
             box-shadow: var(--glass-shadow);
             position: relative;
             overflow: hidden;
+            /* Touch-friendly */
+            min-height: 44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .contact-card::before {
@@ -424,7 +455,8 @@
             left: 100%;
         }
 
-        .contact-card:hover {
+        .contact-card:hover,
+        .contact-card:active {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-5px);
             box-shadow: var(--shadow-xl);
@@ -873,10 +905,32 @@
                 top: var(--space-md);
                 right: var(--space-md);
                 flex-direction: column;
+                gap: var(--space-xs);
+            }
+
+            .nav-item {
+                padding: var(--space-xs) var(--space-sm);
+                font-size: 14px;
             }
 
             .hero {
                 padding: var(--space-xl) 0;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: var(--space-md);
+            }
+
+            .description {
+                font-size: 1rem;
+                line-height: 1.6;
             }
 
             .section-inner {
@@ -892,10 +946,26 @@
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: var(--space-md);
+                width: 100%;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+                padding: var(--space-md) var(--space-lg);
             }
 
             .contact-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: var(--space-sm);
+                margin-top: var(--space-lg);
+            }
+
+            .contact-card {
+                padding: var(--space-md);
+                font-size: 14px;
             }
 
             .timeline {
@@ -913,6 +983,15 @@
             .job-header {
                 flex-direction: column;
                 gap: var(--space-sm);
+                text-align: left;
+            }
+
+            .job-title {
+                font-size: 1.3rem;
+            }
+
+            .company-info {
+                font-size: 1rem;
             }
 
             .skills-grid {
@@ -921,12 +1000,62 @@
 
             .achievements-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: var(--space-sm);
+            }
+
+            .theme-toggle {
+                bottom: var(--space-lg);
+                right: var(--space-lg);
+                width: 50px;
+                height: 50px;
             }
         }
 
         @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .description {
+                font-size: 0.95rem;
+                padding: 0 var(--space-sm);
+            }
+
+            .navbar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: var(--space-xs);
+                top: var(--space-sm);
+                right: var(--space-sm);
+                left: var(--space-sm);
+            }
+
+            .nav-item {
+                padding: var(--space-xs) var(--space-sm);
+                font-size: 12px;
+                flex: 1;
+                text-align: center;
+                min-width: auto;
+            }
+
             .contact-grid {
                 grid-template-columns: 1fr;
+                gap: var(--space-sm);
+            }
+
+            .contact-card {
+                padding: var(--space-sm);
+                font-size: 13px;
+            }
+
+            .cta-button {
+                padding: var(--space-sm) var(--space-md);
+                font-size: 14px;
             }
 
             .achievements-grid {
@@ -939,6 +1068,48 @@
 
             .competencies {
                 grid-template-columns: 1fr;
+            }
+
+            .section-inner {
+                padding: var(--space-lg);
+                margin: var(--space-md) 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                flex-direction: column;
+                gap: var(--space-sm);
+                text-align: center;
+            }
+
+            .section-title::after {
+                display: none;
+            }
+
+            .hero-avatar {
+                width: 120px;
+                height: 120px;
+                margin-bottom: var(--space-lg);
+            }
+
+            .hero-avatar i {
+                font-size: 48px;
+            }
+
+            .timeline-item {
+                padding: var(--space-lg);
+            }
+
+            .job-title {
+                font-size: 1.2rem;
+                line-height: 1.3;
+            }
+
+            .theme-toggle {
+                bottom: var(--space-md);
+                right: var(--space-md);
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
