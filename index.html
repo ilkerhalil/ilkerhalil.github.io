@@ -1,734 +1,268 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İlker Halil Türer — Senior Software Architect</title>
+<title>İlker Halil Türer — Software Architect</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #1a1814; --ink2: #3d3a35; --ink3: #7a7670;
+  --paper: #f5f2ee; --warm: #f0ebe3; --line: #e0dbd2;
+  --accent: #c47a3c; --accent-light: #f5e6d3;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; }
 
-:root{
-  --bg: #060814;
-  --bg-card: #0b0d1e;
-  --bg-card2: #0f1124;
-  --accent: #00c8ff;
-  --accent2: #ff6b35;
-  --accent3: #7b6bfa;
-  --text: #e8eaff;
-  --text-muted: #7880aa;
-  --text-dim: #4a5080;
-  --border: rgba(0,200,255,0.12);
-  --border-hover: rgba(0,200,255,0.35);
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 99;
+  padding: 1.25rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(245,242,238,0.93); backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent; transition: border-color .3s;
 }
+nav.scrolled { border-color: var(--line); }
+.nav-name { font-family: 'Lora', serif; font-size: .9rem; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: .75rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink3); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--accent); }
 
-html{scroll-behavior:smooth}
+.container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+.eyebrow { font-family: 'DM Mono', monospace; font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
+h2 { font-family: 'Lora', serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 400; line-height: 1.2; color: var(--ink); margin-bottom: 3rem; }
 
-body{
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
+/* HERO */
+#hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 0 5rem; }
+.hero-greeting { font-family: 'DM Mono', monospace; font-size: .68rem; letter-spacing: .16em; color: var(--ink3); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: .75rem; }
+.hero-greeting::before { content: ''; width: 28px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.hero-name { font-family: 'Lora', serif; font-size: clamp(3.2rem, 8vw, 6rem); font-weight: 400; line-height: 1; letter-spacing: -.02em; color: var(--ink); margin-bottom: 1rem; }
+.hero-name em { font-style: italic; color: var(--accent); display: block; }
+.hero-role { font-size: 1rem; color: var(--ink3); font-weight: 300; margin-bottom: 2rem; }
+.hero-bio { max-width: 540px; font-size: 1.02rem; color: var(--ink2); line-height: 1.85; margin-bottom: 2.75rem; }
+.hero-bio strong { font-weight: 500; color: var(--ink); }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+.btn { font-family: 'DM Mono', monospace; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; padding: .85rem 1.75rem; border-radius: .25rem; text-decoration: none; transition: all .22s; display: inline-block; }
+.btn-solid { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+.btn-solid:hover { background: var(--accent); border-color: var(--accent); }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn-ghost:hover { border-color: var(--ink3); }
+.hero-nums { display: flex; gap: 3rem; flex-wrap: wrap; padding-top: 2.5rem; border-top: 1px solid var(--line); }
+.num-val { font-family: 'Lora', serif; font-size: 2rem; color: var(--ink); display: block; }
+.num-label { font-size: .76rem; color: var(--ink3); display: block; margin-top: .1rem; }
 
-/* ── CANVAS BG ── */
-#canvas-bg{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:0.4;
-}
+/* SKILLS */
+#skills { padding: 7rem 0; }
+.skills-layout { display: grid; grid-template-columns: 220px 1fr; gap: 5rem; align-items: start; }
+.skills-desc { font-size: .92rem; color: var(--ink2); line-height: 1.8; }
+.skill-groups { display: flex; flex-direction: column; gap: 2rem; }
+.sg-title { font-family: 'DM Mono', monospace; font-size: .63rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-bottom: .85rem; padding-bottom: .6rem; border-bottom: 1px solid var(--line); }
+.sg-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
+.pill { font-size: .8rem; color: var(--ink2); padding: .28rem .75rem; border-radius: 2rem; border: 1px solid var(--line); transition: all .18s; cursor: default; }
+.pill:hover, .pill.hi { background: var(--accent-light); border-color: #d4904e; color: var(--ink); }
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:1.2rem 2.5rem;
-  display:flex;align-items:center;justify-content:space-between;
-  background: rgba(6,8,20,0.85);
-  backdrop-filter: blur(18px);
-  border-bottom: 0.5px solid var(--border);
-  transition: all .3s ease;
-}
-.nav-logo{
-  font-family:var(--font-mono);
-  font-size:1rem;color:var(--accent);
-  letter-spacing:.05em;
-}
-.nav-logo span{color:var(--text-muted)}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{
-  font-family:var(--font-mono);font-size:.75rem;
-  color:var(--text-muted);text-decoration:none;
-  letter-spacing:.12em;text-transform:uppercase;
-  transition:color .2s;
-}
-.nav-links a:hover{color:var(--accent)}
+/* EXPERIENCE */
+#experience { padding: 7rem 0; background: var(--warm); }
+.exp-item { display: grid; grid-template-columns: 150px 1fr; gap: 2.5rem; padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
+.exp-item:first-of-type { border-top: 1px solid var(--line); }
+.exp-period { font-family: 'DM Mono', monospace; font-size: .67rem; letter-spacing: .05em; color: var(--ink3); display: block; margin-bottom: .3rem; }
+.exp-co { font-size: .82rem; font-weight: 500; color: var(--accent); }
+.exp-title { font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 400; color: var(--ink); margin-bottom: .55rem; }
+.exp-desc { font-size: .9rem; color: var(--ink2); line-height: 1.75; margin-bottom: .9rem; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.etag { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .04em; color: var(--ink3); padding: .15rem .55rem; border: 1px solid var(--line); border-radius: .2rem; }
 
-/* ── LAYOUT ── */
-section{position:relative;z-index:1}
-.container{max-width:1100px;margin:0 auto;padding:0 2rem}
-.section-label{
-  font-family:var(--font-mono);font-size:.7rem;
-  color:var(--accent);letter-spacing:.18em;text-transform:uppercase;
-  margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;
-}
-.section-label::before{
-  content:'';display:inline-block;width:24px;height:1px;background:var(--accent);
-}
-h2.section-title{
-  font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);
-  font-weight:800;color:var(--text);line-height:1.1;
-  margin-bottom:3rem;
-}
-h2.section-title span{color:var(--accent)}
+/* CONTACT */
+#contact { padding: 7rem 0; }
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+.contact-tagline { font-family: 'Lora', serif; font-size: 1.3rem; font-style: italic; color: var(--ink2); line-height: 1.6; margin-bottom: 2rem; }
+.clinks { display: flex; flex-direction: column; gap: .7rem; }
+.clink { display: flex; align-items: center; gap: .75rem; font-size: .88rem; color: var(--ink2); text-decoration: none; transition: color .18s; }
+.clink:hover { color: var(--accent); }
+.clink-label { font-family: 'DM Mono', monospace; font-size: .6rem; letter-spacing: .08em; color: var(--ink3); width: 52px; flex-shrink: 0; }
+.info-table { display: flex; flex-direction: column; }
+.info-row { display: flex; justify-content: space-between; padding: .9rem 0; border-bottom: 1px solid var(--line); font-size: .88rem; }
+.info-row:first-child { border-top: 1px solid var(--line); }
+.info-k { color: var(--ink3); font-size: .76rem; }
+.info-v { color: var(--ink); font-weight: 500; }
+.info-v.ok { color: var(--accent); }
 
-/* ── HERO ── */
-#hero{
-  min-height:100vh;display:flex;align-items:center;
-  padding:7rem 0 5rem;
-}
-.hero-inner{max-width:1100px;margin:0 auto;padding:0 2rem}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--font-mono);font-size:.7rem;
-  color:var(--accent);letter-spacing:.15em;
-  border:0.5px solid var(--border);border-radius:2rem;
-  padding:.35rem 1rem;margin-bottom:2rem;
-}
-.hero-tag::before{
-  content:'';width:6px;height:6px;border-radius:50%;
-  background:var(--accent);animation:pulse 2s infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: .68rem; color: var(--ink3); letter-spacing: .05em; }
 
-.hero-name{
-  font-family:var(--font-head);
-  font-size:clamp(3.5rem,8vw,7rem);
-  font-weight:800;line-height:.95;
-  letter-spacing:-.02em;
-  color:var(--text);
-  margin-bottom:.5rem;
-}
-.hero-name .accent-line{
-  display:block;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent3) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.hero-subtitle{
-  font-family:var(--font-mono);font-size:1.1rem;
-  color:var(--text-muted);margin:1.5rem 0;
-  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
-}
-.hero-subtitle .sep{color:var(--text-dim)}
-.hero-desc{
-  max-width:620px;font-size:1.05rem;color:var(--text-muted);
-  line-height:1.75;margin-bottom:2.5rem;
-}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3.5rem}
-.btn-primary{
-  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.08em;
-  padding:.9rem 2rem;border-radius:.5rem;text-decoration:none;
-  background:var(--accent);color:var(--bg);font-weight:500;
-  transition:all .25s;border:none;cursor:pointer;
-}
-.btn-primary:hover{background:#33d4ff;transform:translateY(-2px)}
-.btn-outline{
-  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.08em;
-  padding:.9rem 2rem;border-radius:.5rem;text-decoration:none;
-  background:transparent;color:var(--accent);font-weight:400;
-  border:0.5px solid var(--border-hover);
-  transition:all .25s;cursor:pointer;
-}
-.btn-outline:hover{background:rgba(0,200,255,.07);transform:translateY(-2px)}
-.hero-stats{
-  display:flex;gap:2.5rem;flex-wrap:wrap;
-  padding-top:2.5rem;
-  border-top:0.5px solid var(--border);
-}
-.stat-item{}
-.stat-num{
-  font-family:var(--font-head);font-size:2.2rem;font-weight:800;
-  color:var(--accent);line-height:1;display:block;
-}
-.stat-label{
-  font-family:var(--font-mono);font-size:.7rem;
-  color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;
-  margin-top:.25rem;display:block;
-}
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.in { opacity: 1; transform: none; }
 
-/* ── SKILLS ── */
-#skills{padding:8rem 0}
-.skills-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:1.5rem;
-}
-.skill-category{
-  background:var(--bg-card);
-  border:0.5px solid var(--border);
-  border-radius:1rem;
-  padding:1.75rem;
-  transition:border-color .3s, transform .3s;
-  position:relative;overflow:hidden;
-}
-.skill-category::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--accent),var(--accent3));
-  opacity:0;transition:opacity .3s;
-}
-.skill-category:hover{border-color:var(--border-hover);transform:translateY(-4px)}
-.skill-category:hover::before{opacity:1}
-.cat-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
-.cat-icon{
-  width:38px;height:38px;border-radius:.5rem;
-  background:rgba(0,200,255,.08);border:0.5px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;
-}
-.cat-title{font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text)}
-.skill-bars{display:flex;flex-direction:column;gap:.9rem}
-.skill-bar-item{}
-.skill-bar-header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:.35rem;
-}
-.skill-bar-name{font-family:var(--font-mono);font-size:.72rem;color:var(--text);letter-spacing:.04em}
-.skill-bar-pct{font-family:var(--font-mono);font-size:.68rem;color:var(--accent)}
-.skill-bar-track{
-  height:3px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;
-}
-.skill-bar-fill{
-  height:100%;border-radius:2px;width:0;
-  background:linear-gradient(90deg,var(--accent),var(--accent3));
-  transition:width 1.2s cubic-bezier(.16,1,.3,1);
-}
-.skill-bar-fill.orange{background:linear-gradient(90deg,var(--accent2),#ffaa6b)}
-.skill-bar-fill.purple{background:linear-gradient(90deg,var(--accent3),#a78bfa)}
-.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
-.tag{
-  font-family:var(--font-mono);font-size:.65rem;letter-spacing:.06em;
-  padding:.28rem .65rem;border-radius:.25rem;
-  border:0.5px solid var(--border);color:var(--text-muted);
-  background:rgba(255,255,255,.02);
-  transition:all .2s;
-}
-.tag:hover{border-color:var(--accent);color:var(--accent)}
-
-/* ── EXPERIENCE ── */
-#experience{padding:8rem 0}
-.timeline{position:relative;padding-left:2rem}
-.timeline::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;
-  width:1px;background:linear-gradient(180deg,var(--accent) 0%,transparent 100%);
-  opacity:.3;
-}
-.timeline-item{
-  position:relative;padding:0 0 3.5rem 2rem;
-}
-.timeline-item::before{
-  content:'';position:absolute;left:-5px;top:.5rem;
-  width:11px;height:11px;border-radius:50%;
-  background:var(--bg);border:2px solid var(--accent);
-  box-shadow:0 0 12px rgba(0,200,255,.4);
-}
-.timeline-meta{
-  display:flex;align-items:center;gap:1rem;
-  margin-bottom:.75rem;flex-wrap:wrap;
-}
-.timeline-company{
-  font-family:var(--font-mono);font-size:.7rem;
-  color:var(--accent);letter-spacing:.1em;text-transform:uppercase;
-  background:rgba(0,200,255,.08);border:0.5px solid var(--border);
-  padding:.25rem .7rem;border-radius:.25rem;
-}
-.timeline-period{
-  font-family:var(--font-mono);font-size:.7rem;
-  color:var(--text-dim);letter-spacing:.06em;
-}
-.timeline-title{
-  font-family:var(--font-head);font-size:1.3rem;font-weight:700;
-  color:var(--text);margin-bottom:.6rem;
-}
-.timeline-body{color:var(--text-muted);font-size:.95rem;line-height:1.7;max-width:680px}
-.timeline-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
-
-/* ── PROJECTS ── */
-#projects{padding:8rem 0}
-.projects-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:1.5rem;
-}
-.project-card{
-  background:var(--bg-card);border:0.5px solid var(--border);border-radius:1rem;
-  padding:1.75rem;display:flex;flex-direction:column;
-  transition:border-color .3s, transform .3s;position:relative;overflow:hidden;
-}
-.project-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:120px;
-  background:linear-gradient(0deg,rgba(0,200,255,.03) 0%,transparent 100%);
-  pointer-events:none;
-}
-.project-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
-.project-num{
-  font-family:var(--font-mono);font-size:.65rem;
-  color:var(--text-dim);letter-spacing:.12em;margin-bottom:1rem;
-}
-.project-title{
-  font-family:var(--font-head);font-size:1.1rem;font-weight:700;
-  color:var(--text);margin-bottom:.6rem;
-}
-.project-desc{font-size:.9rem;color:var(--text-muted);line-height:1.65;flex:1;margin-bottom:1.25rem}
-.project-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.project-tag{
-  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.06em;
-  padding:.2rem .55rem;border-radius:.2rem;
-  color:var(--accent);background:rgba(0,200,255,.07);
-  border:0.5px solid rgba(0,200,255,.2);
-}
-
-/* ── CONTACT ── */
-#contact{padding:8rem 0 6rem}
-.contact-inner{
-  background:var(--bg-card);border:0.5px solid var(--border);
-  border-radius:1.25rem;padding:3.5rem;
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
-  position:relative;overflow:hidden;
-}
-.contact-inner::before{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:280px;height:280px;border-radius:50%;
-  background:radial-gradient(circle,rgba(0,200,255,.06) 0%,transparent 70%);
-  pointer-events:none;
-}
-.contact-title{
-  font-family:var(--font-head);font-size:2rem;font-weight:800;
-  color:var(--text);margin-bottom:1rem;
-}
-.contact-desc{color:var(--text-muted);line-height:1.75;margin-bottom:2rem}
-.contact-links{display:flex;flex-direction:column;gap:1rem}
-.contact-link{
-  display:flex;align-items:center;gap:.75rem;
-  font-family:var(--font-mono);font-size:.8rem;
-  color:var(--text-muted);text-decoration:none;
-  padding:.75rem 1rem;border-radius:.5rem;
-  border:0.5px solid var(--border);
-  transition:all .2s;
-}
-.contact-link:hover{border-color:var(--border-hover);color:var(--accent);background:rgba(0,200,255,.04)}
-.contact-link-icon{
-  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
-  border-radius:.35rem;background:rgba(0,200,255,.08);
-  font-size:.9rem;
-}
-.contact-right{display:flex;flex-direction:column;justify-content:center}
-.info-item{
-  padding:1rem 0;border-bottom:0.5px solid var(--border);
-  display:flex;flex-direction:column;gap:.25rem;
-}
-.info-item:last-child{border-bottom:none}
-.info-label{font-family:var(--font-mono);font-size:.65rem;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase}
-.info-value{font-size:.95rem;color:var(--text)}
-
-/* ── FOOTER ── */
-footer{
-  border-top:0.5px solid var(--border);
-  padding:2rem;text-align:center;
-  font-family:var(--font-mono);font-size:.7rem;color:var(--text-dim);
-  position:relative;z-index:1;
-}
-footer span{color:var(--text-muted)}
-
-/* ── FADE IN ── */
-.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.fade-in.visible{opacity:1;transform:none}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:rgba(0,200,255,.2);border-radius:2px}
-
-/* ── MOBILE ── */
-@media(max-width:768px){
-  nav{padding:1rem 1.25rem}
-  .nav-links{display:none}
-  .hero-stats{gap:1.5rem}
-  .contact-inner{grid-template-columns:1fr;gap:2.5rem;padding:2rem}
-  .skills-grid{grid-template-columns:1fr}
-  .projects-grid{grid-template-columns:1fr}
+@media (max-width: 720px) {
+  nav { padding: 1rem 1.25rem; }
+  .nav-links { display: none; }
+  .skills-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .exp-item { grid-template-columns: 1fr; gap: .8rem; }
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+  footer { flex-direction: column; gap: .5rem; }
 }
 </style>
 </head>
 <body>
 
-<canvas id="canvas-bg"></canvas>
-
-<nav>
-  <div class="nav-logo">iht<span>://</span>portfolio</div>
+<nav id="nav">
+  <a class="nav-name" href="#">İlker Halil Türer</a>
   <ul class="nav-links">
-    <li><a href="#skills">skills</a></li>
-    <li><a href="#experience">experience</a></li>
-    <li><a href="#projects">projects</a></li>
-    <li><a href="#contact">contact</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">Available for new opportunities</div>
-    <h1 class="hero-name">
-      İlker Halil<br>
-      <span class="accent-line">Türer</span>
-    </h1>
-    <div class="hero-subtitle">
-      <span>Senior Software Architect</span>
-      <span class="sep">/</span>
-      <span>DevOps Leader</span>
-      <span class="sep">/</span>
-      <span>AI·ML Engineer</span>
-    </div>
-    <p class="hero-desc">
-      14+ yıllık deneyimle kurumsal sistemleri moderne taşıyor, ölçeklenebilir cloud altyapısı kuruyor ve AI/ML entegrasyonlarıyla iş süreçlerini dönüştürüyorum. .NET, Python, Kubernetes ve AWS ekosisteminde derinlemesine uzmanım.
+  <div class="container">
+    <div class="hero-greeting">Hi, I'm</div>
+    <h1 class="hero-name">İlker Halil<em>Türer</em></h1>
+    <div class="hero-role">Senior Software Architect &nbsp;·&nbsp; İzmir, Turkey</div>
+    <p class="hero-bio">
+      I've been working on software architecture and cloud infrastructure for 14 years. <strong>Modernizing enterprise systems</strong>, growing teams, and recently <strong>AI/ML integrations</strong> are where I spend most of my time. I enjoy working with people just as much as writing code.
     </p>
-    <div class="hero-ctas">
-      <a href="#projects" class="btn-primary">Projeleri Gör</a>
-      <a href="#contact" class="btn-outline">İletişime Geç</a>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-solid">Get in touch</a>
+      <a href="#experience" class="btn btn-ghost">See my experience</a>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">14+</span>
-        <span class="stat-label">Yıl Deneyim</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">20+</span>
-        <span class="stat-label">Mentörlük</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">40%</span>
-        <span class="stat-label">Maliyet Azaltma</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">100+</span>
-        <span class="stat-label">Proje</span>
-      </div>
+    <div class="hero-nums">
+      <div><span class="num-val">14</span><span class="num-label">Years of experience</span></div>
+      <div><span class="num-val">20+</span><span class="num-label">Developers mentored</span></div>
+      <div><span class="num-val">40%</span><span class="num-label">Infrastructure cost reduction</span></div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <div class="section-label">Core Competencies</div>
-    <h2 class="section-title">Yetkinlikler &amp; <span>Teknolojiler</span></h2>
-    <div class="skills-grid">
-
-      <!-- Backend -->
-      <div class="skill-category fade-in">
-        <div class="cat-header">
-          <div class="cat-icon">⚙️</div>
-          <span class="cat-title">Backend &amp; Diller</span>
+    <div class="skills-layout">
+      <div class="reveal">
+        <div class="eyebrow">Competencies</div>
+        <h2>What I work on</h2>
+        <p class="skills-desc">I have experience across a broad technology stack. The highlighted ones are where I feel deepest.</p>
+      </div>
+      <div class="skill-groups reveal">
+        <div>
+          <div class="sg-title">Backend &amp; Languages</div>
+          <div class="sg-pills">
+            <span class="pill hi">.NET Core</span><span class="pill hi">C#</span>
+            <span class="pill hi">Python</span><span class="pill hi">FastAPI</span>
+            <span class="pill">ASP.NET</span><span class="pill">Entity Framework</span>
+            <span class="pill">SQLAlchemy</span>
+          </div>
         </div>
-        <div class="skill-bars">
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">.NET Core / C#</span><span class="skill-bar-pct">95%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="95"></div></div>
+        <div>
+          <div class="sg-title">Cloud &amp; Infrastructure</div>
+          <div class="sg-pills">
+            <span class="pill hi">AWS</span><span class="pill hi">Kubernetes</span>
+            <span class="pill hi">Docker</span><span class="pill hi">Terraform</span>
+            <span class="pill">EKS / ECS</span><span class="pill">CI/CD</span>
+            <span class="pill">Azure</span>
           </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">88%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="88"></div></div>
+        </div>
+        <div>
+          <div class="sg-title">AI &amp; Machine Learning</div>
+          <div class="sg-pills">
+            <span class="pill hi">CatBoost / XGBoost</span>
+            <span class="pill hi">Local LLM / Ollama</span>
+            <span class="pill hi">MCP Protocol</span>
+            <span class="pill">RAG / Embeddings</span>
+            <span class="pill">SageMaker</span>
+            <span class="pill">LightGBM</span>
           </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">FastAPI / ASP.NET</span><span class="skill-bar-pct">90%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="90"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">Entity Framework / SQLAlchemy</span><span class="skill-bar-pct">85%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="85"></div></div>
+        </div>
+        <div>
+          <div class="sg-title">Database &amp; Observability</div>
+          <div class="sg-pills">
+            <span class="pill hi">PostgreSQL</span><span class="pill">Redis</span>
+            <span class="pill">Elasticsearch</span><span class="pill">MongoDB</span>
+            <span class="pill">Grafana</span><span class="pill">OpenTelemetry</span>
+            <span class="pill">Prometheus</span>
           </div>
         </div>
       </div>
-
-      <!-- Cloud & DevOps -->
-      <div class="skill-category fade-in">
-        <div class="cat-header">
-          <div class="cat-icon">☁️</div>
-          <span class="cat-title">Cloud &amp; DevOps</span>
-        </div>
-        <div class="skill-bars">
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">AWS (EKS, ECS, S3, Lambda)</span><span class="skill-bar-pct">90%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill orange" data-pct="90"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">Kubernetes</span><span class="skill-bar-pct">88%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill orange" data-pct="88"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">Terraform / IaC</span><span class="skill-bar-pct">83%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill orange" data-pct="83"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">Docker / CI-CD</span><span class="skill-bar-pct">92%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill orange" data-pct="92"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI / ML -->
-      <div class="skill-category fade-in">
-        <div class="cat-header">
-          <div class="cat-icon">🤖</div>
-          <span class="cat-title">AI &amp; Machine Learning</span>
-        </div>
-        <div class="skill-bars">
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">CatBoost / XGBoost / LightGBM</span><span class="skill-bar-pct">82%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="82"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">Local LLM (Ollama / LM Studio)</span><span class="skill-bar-pct">85%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="85"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">MCP / RAG / Embeddings</span><span class="skill-bar-pct">80%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="80"></div></div>
-          </div>
-          <div class="skill-bar-item">
-            <div class="skill-bar-header"><span class="skill-bar-name">SageMaker / MLOps</span><span class="skill-bar-pct">75%</span></div>
-            <div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="75"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Database -->
-      <div class="skill-category fade-in">
-        <div class="cat-header">
-          <div class="cat-icon">🗄️</div>
-          <span class="cat-title">Veritabanı &amp; Depolama</span>
-        </div>
-        <div class="skill-tags">
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">Redis</span>
-          <span class="tag">MongoDB</span>
-          <span class="tag">Elasticsearch</span>
-          <span class="tag">Qdrant</span>
-          <span class="tag">TimescaleDB</span>
-          <span class="tag">DynamoDB</span>
-        </div>
-      </div>
-
-      <!-- Architecture -->
-      <div class="skill-category fade-in">
-        <div class="cat-header">
-          <div class="cat-icon">🏛️</div>
-          <span class="cat-title">Mimari &amp; Tasarım</span>
-        </div>
-        <div class="skill-tags">
-          <span class="tag">Microservices</span>
-          <span class="tag">DDD</span>
-          <span class="tag">CQRS</span>
-          <span class="tag">Event-Driven</span>
-          <span class="tag">Clean Architecture</span>
-          <span class="tag">API Design</span>
-          <span class="tag">OpenTelemetry</span>
-          <span class="tag">gRPC</span>
-        </div>
-      </div>
-
-      <!-- Observability -->
-      <div class="skill-category fade-in">
-        <div class="cat-header">
-          <div class="cat-icon">📊</div>
-          <span class="cat-title">Observability &amp; Güvenlik</span>
-        </div>
-        <div class="skill-tags">
-          <span class="tag">Grafana</span>
-          <span class="tag">Prometheus</span>
-          <span class="tag">Kibana</span>
-          <span class="tag">SigNoz</span>
-          <span class="tag">IdentityServer</span>
-          <span class="tag">OAuth2 / JWT</span>
-          <span class="tag">Vault</span>
-          <span class="tag">SIEM</span>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
-    <div class="section-label">Professional Journey</div>
-    <h2 class="section-title">İş <span>Deneyimi</span></h2>
-    <div class="timeline">
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-meta">
-          <span class="timeline-company">Intertech</span>
-          <span class="timeline-period">2020 – Günümüz</span>
-        </div>
-        <div class="timeline-title">Senior Software Architect</div>
-        <div class="timeline-body">
-          Kurumsal ölçekte mimari tasarım ve uygulama liderliği. Legacy sistemleri modern cloud-native platformlara taşıyarak %40 maliyet azaltımı sağladı. 20+ geliştiriciye teknik mentörlük, EKS/ECS üzerinde Kubernetes altyapısı yönetimi ve AI/ML entegrasyonları.
-        </div>
-        <div class="timeline-tags">
-          <span class="tag">.NET Core</span><span class="tag">AWS EKS</span><span class="tag">Kubernetes</span>
-          <span class="tag">Python</span><span class="tag">Terraform</span><span class="tag">AI/ML</span>
+    <div class="reveal">
+      <div class="eyebrow">Experience</div>
+      <h2>Where I've been</h2>
+    </div>
+    <div class="exp-item reveal">
+      <div>
+        <span class="exp-period">2020 — present</span>
+        <span class="exp-co">Intertech</span>
+      </div>
+      <div>
+        <div class="exp-title">Senior Software Architect</div>
+        <p class="exp-desc">Making architectural decisions at enterprise scale and managing cloud infrastructure. Achieved 40% cost reduction through legacy system modernization. Mentoring 20+ developers. Increasingly focused on AI/ML integrations.</p>
+        <div class="exp-tags">
+          <span class="etag">.NET Core</span><span class="etag">AWS EKS</span>
+          <span class="etag">Kubernetes</span><span class="etag">Python</span><span class="etag">AI/ML</span>
         </div>
       </div>
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-meta">
-          <span class="timeline-company">—</span>
-          <span class="timeline-period">2016 – 2020</span>
-        </div>
-        <div class="timeline-title">Lead Software Developer</div>
-        <div class="timeline-body">
-          Çapraz fonksiyonlu ekiplere liderlik, microservices mimarisine geçiş ve CI/CD pipeline kurulumu. Yüksek trafikli sistemlerin ölçeklenmesi ve performans optimizasyonu.
-        </div>
-        <div class="timeline-tags">
-          <span class="tag">Microservices</span><span class="tag">Docker</span><span class="tag">GitLab CI</span>
-          <span class="tag">RabbitMQ</span><span class="tag">DDD</span>
+    </div>
+    <div class="exp-item reveal">
+      <div>
+        <span class="exp-period">2016 — 2020</span>
+        <span class="exp-co">—</span>
+      </div>
+      <div>
+        <div class="exp-title">Lead Software Developer</div>
+        <p class="exp-desc">Technical leadership across cross-functional teams. Led the migration from monolithic architecture to microservices. Built CI/CD pipelines from the ground up.</p>
+        <div class="exp-tags">
+          <span class="etag">Microservices</span><span class="etag">Docker</span>
+          <span class="etag">RabbitMQ</span><span class="etag">DDD</span>
         </div>
       </div>
-
-      <div class="timeline-item fade-in">
-        <div class="timeline-meta">
-          <span class="timeline-company">—</span>
-          <span class="timeline-period">2010 – 2016</span>
-        </div>
-        <div class="timeline-title">Senior Software Developer</div>
-        <div class="timeline-body">
-          .NET ekosisteminde ölçeklenebilir web uygulamaları ve API'ler geliştirdi. Cloud teknolojilerine derinlemesine hakimiyet kazandı.
-        </div>
-        <div class="timeline-tags">
-          <span class="tag">ASP.NET</span><span class="tag">SQL Server</span><span class="tag">Azure</span>
+    </div>
+    <div class="exp-item reveal">
+      <div>
+        <span class="exp-period">2010 — 2016</span>
+        <span class="exp-co">—</span>
+      </div>
+      <div>
+        <div class="exp-title">Senior Software Developer</div>
+        <p class="exp-desc">Built scalable web applications and APIs in the .NET ecosystem. Developed deep expertise in cloud technologies.</p>
+        <div class="exp-tags">
+          <span class="etag">ASP.NET</span><span class="etag">SQL Server</span><span class="etag">Azure</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-label">Featured Work</div>
-    <h2 class="section-title">Öne Çıkan <span>Projeler</span></h2>
-    <div class="projects-grid">
-
-      <div class="project-card fade-in">
-        <div class="project-num">01 · AI / ML</div>
-        <div class="project-title">TJK At Yarışı Tahmin Sistemi</div>
-        <div class="project-desc">PostgreSQL tabanlı ETL pipeline, TJK JSON API entegrasyonu ve CatBoost/XGBoost/LightGBM ensemble modeli. MCP server + Ollama ile yerel LLM destekli analiz.</div>
-        <div class="project-tags">
-          <span class="project-tag">Python</span><span class="project-tag">CatBoost</span>
-          <span class="project-tag">PostgreSQL</span><span class="project-tag">MCP</span>
-          <span class="project-tag">Ollama</span><span class="project-tag">Docker</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-num">02 · Cloud</div>
-        <div class="project-title">Enterprise Cloud Migration</div>
-        <div class="project-desc">Monolitik sistemlerin microservices mimarisine ve AWS/Azure'a sıfır kesintili geçişi. %40 maliyet azaltımı, Kubernetes orkestrasyon ve IaC ile tam otomasyon.</div>
-        <div class="project-tags">
-          <span class="project-tag">AWS EKS</span><span class="project-tag">Terraform</span>
-          <span class="project-tag">.NET Core</span><span class="project-tag">Kubernetes</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-num">03 · API</div>
-        <div class="project-title">Keystone API Key Manager</div>
-        <div class="project-desc">FastAPI, Redis ve PostgreSQL tabanlı kurumsal API anahtar yönetim sistemi. Python 3.13 + uv ile modern paket yönetimi, rate limiting ve tam audit loglama.</div>
-        <div class="project-tags">
-          <span class="project-tag">FastAPI</span><span class="project-tag">Redis</span>
-          <span class="project-tag">PostgreSQL</span><span class="project-tag">Python 3.13</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-num">04 · ERP</div>
-        <div class="project-title">Turerp ERP Platformu</div>
-        <div class="project-desc">313 endpoint OpenAPI spec'ten Next.js mimari planı ve UX prototipi. SQLAlchemy 2.0 + FastAPI ile Python backend, Python 3.14 standartlarında.</div>
-        <div class="project-tags">
-          <span class="project-tag">Next.js</span><span class="project-tag">FastAPI</span>
-          <span class="project-tag">SQLAlchemy</span><span class="project-tag">OpenAPI</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-num">05 · IoT</div>
-        <div class="project-title">Smart Home Altyapısı</div>
-        <div class="project-desc">Home Assistant + tuya-local ile EVWallbox EV şarj istasyonu izleme. ESP32 RPM sensörü ile egzersiz bisikleti telemetri sistemi, Urla evi için solar panel otomasyonu.</div>
-        <div class="project-tags">
-          <span class="project-tag">Home Assistant</span><span class="project-tag">ESP32</span>
-          <span class="project-tag">Docker</span><span class="project-tag">MQTT</span>
-        </div>
-      </div>
-
-      <div class="project-card fade-in">
-        <div class="project-num">06 · Observability</div>
-        <div class="project-title">LLM Hallucination Monitor</div>
-        <div class="project-desc">OpenTelemetry tabanlı LLM izleme ve hallucination tespiti. SigNoz + Grafana LGTM stack ile gerçek zamanlı APM ve AI model performans metrikleri.</div>
-        <div class="project-tags">
-          <span class="project-tag">OpenTelemetry</span><span class="project-tag">SigNoz</span>
-          <span class="project-tag">Grafana</span><span class="project-tag">Prometheus</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-label">Let's Connect</div>
-    <h2 class="section-title">İletişim<span>.</span></h2>
-    <div class="contact-inner fade-in">
+    <div class="reveal">
+      <div class="eyebrow">Contact</div>
+      <h2>Let's work together</h2>
+    </div>
+    <div class="contact-layout reveal">
       <div>
-        <div class="contact-title">Yeni bir fırsata hazırım.</div>
-        <p class="contact-desc">Kurumsal dönüşüm, cloud mimarisi veya AI/ML entegrasyonu konularında birlikte çalışmak ister misiniz? Hemen yazın.</p>
-        <div class="contact-links">
-          <a href="mailto:ilkerhalil@gmail.com" class="contact-link">
-            <span class="contact-link-icon">✉</span>
-            ilkerhalil@gmail.com
+        <p class="contact-tagline">"Feel free to reach out about a new project, an opportunity, or just to say hello."</p>
+        <div class="clinks">
+          <a href="mailto:ilkerhalil@gmail.com" class="clink">
+            <span class="clink-label">email</span>ilkerhalil@gmail.com
           </a>
-          <a href="https://linkedin.com/in/ilker-halil-turer" class="contact-link" target="_blank">
-            <span class="contact-link-icon">in</span>
-            linkedin.com/in/ilker-halil-turer
+          <a href="https://linkedin.com/in/ilker-halil-turer" target="_blank" class="clink">
+            <span class="clink-label">linkedin</span>ilker-halil-turer
           </a>
-          <a href="https://github.com/ilkerhalil" class="contact-link" target="_blank">
-            <span class="contact-link-icon">gh</span>
-            github.com/ilkerhalil
+          <a href="https://github.com/ilkerhalil" target="_blank" class="clink">
+            <span class="clink-label">github</span>ilkerhalil
           </a>
         </div>
       </div>
-      <div class="contact-right">
-        <div class="info-item">
-          <span class="info-label">Konum</span>
-          <span class="info-value">İzmir / İstanbul, Türkiye</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Çalışma Şekli</span>
-          <span class="info-value">Remote · Hybrid</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Durum</span>
-          <span class="info-value" style="color:var(--accent)">● Açık pozisyonlara bakıyorum</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Uzmanlıklar</span>
-          <span class="info-value">.NET · Python · AWS · K8s · AI/ML</span>
+      <div>
+        <div class="info-table">
+          <div class="info-row"><span class="info-k">Location</span><span class="info-v">İzmir / Istanbul</span></div>
+          <div class="info-row"><span class="info-k">Work style</span><span class="info-v">Remote · Hybrid</span></div>
+          <div class="info-row"><span class="info-k">Status</span><span class="info-v ok">Open to new opportunities</span></div>
+          <div class="info-row"><span class="info-k">Languages</span><span class="info-v">Turkish · English</span></div>
         </div>
       </div>
     </div>
@@ -736,97 +270,18 @@ footer span{color:var(--text-muted)}
 </section>
 
 <footer>
-  <span>© 2025 İlker Halil Türer</span> — Built with precision &amp; care
+  <span>İlker Halil Türer</span>
+  <span>© 2025</span>
 </footer>
 
 <script>
-/* ── PARTICLE CANVAS ── */
-const canvas = document.getElementById('canvas-bg');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [];
-
-function resize(){
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-class Particle {
-  constructor(){this.reset()}
-  reset(){
-    this.x = Math.random()*W;
-    this.y = Math.random()*H;
-    this.vx = (Math.random()-.5)*.3;
-    this.vy = (Math.random()-.5)*.3;
-    this.r = Math.random()*1.5+.3;
-    this.alpha = Math.random()*.5+.1;
-  }
-  update(){
-    this.x+=this.vx; this.y+=this.vy;
-    if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset();
-  }
-}
-
-for(let i=0;i<90;i++) particles.push(new Particle());
-
-function drawGrid(){
-  ctx.strokeStyle='rgba(0,200,255,0.03)';
-  ctx.lineWidth=.5;
-  const step=80;
-  for(let x=0;x<W;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
-  for(let y=0;y<H;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
-}
-
-function drawConnections(){
-  for(let i=0;i<particles.length;i++){
-    for(let j=i+1;j<particles.length;j++){
-      const dx=particles[i].x-particles[j].x;
-      const dy=particles[i].y-particles[j].y;
-      const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120){
-        ctx.strokeStyle=`rgba(0,200,255,${.08*(1-dist/120)})`;
-        ctx.lineWidth=.5;
-        ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);
-        ctx.lineTo(particles[j].x,particles[j].y);ctx.stroke();
-      }
-    }
-  }
-}
-
-function animate(){
-  ctx.clearRect(0,0,W,H);
-  drawGrid();
-  particles.forEach(p=>{
-    p.update();
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(0,200,255,${p.alpha})`;ctx.fill();
-  });
-  drawConnections();
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* ── INTERSECTION OBSERVER (fade-in + skill bars) ── */
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      entry.target.querySelectorAll('.skill-bar-fill').forEach(bar=>{
-        bar.style.width = bar.dataset.pct + '%';
-      });
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:.15});
-
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-
-/* ── NAV SCROLL ── */
-window.addEventListener('scroll',()=>{
-  const nav=document.querySelector('nav');
-  nav.style.background=window.scrollY>50?'rgba(6,8,20,0.95)':'rgba(6,8,20,0.85)';
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 40);
 });
+const obs = new IntersectionObserver(e => {
+  e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); obs.unobserve(x.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
