@@ -1,0 +1,1026 @@
+# Personal Website Redesign v2 - Implementation Plan
+
+> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Complete redesign of personal website with terminal/code-editor aesthetic, dark theme with gold accents, typing animations, and professional corporate polish.
+
+**Architecture:** Single HTML file with embedded CSS/JS. Vanilla JS for animations. Google Fonts for typography.
+
+**Tech Stack:** HTML5, CSS3 (custom properties, clamp()), Vanilla JS, Google Fonts (JetBrains Mono, DM Sans)
+
+---
+
+## File Structure
+
+- Modify: `index.html` - Complete redesign (replaces existing)
+- Create: `SPEC.md` - Optional detailed spec reference
+
+---
+
+## Implementation Tasks
+
+### Task 1: HTML Structure & Navigation
+
+- [ ] **Step 1: Write index.html skeleton with new structure**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İlker Halil Türer — Software Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="#" class="nav-prompt">~ $ whoami</a>
+    <ul class="nav-links">
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="terminal-prompt">
+      <span class="prompt-symbol">❯</span>
+      <span class="prompt-text">Welcome to my portfolio</span>
+      <span class="cursor">_</span>
+    </div>
+    <h1 class="hero-name">İlker Halil<span class="accent">Türer</span></h1>
+    <p class="hero-role">Senior Software Architect</p>
+    <p class="hero-bio">14+ years architecting enterprise systems, leading teams, and integrating AI/ML solutions. AWS Certified.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-secondary">View experience</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-value">14+</span><span class="stat-label">years</span></div>
+      <div class="stat"><span class="stat-value">20+</span><span class="stat-label">mentored</span></div>
+      <div class="stat"><span class="stat-value">40%</span><span class="stat-label">cost reduction</span></div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2 class="section-title"><span class="prompt-symbol">❯</span> skills --list</h2>
+    <div class="skills-grid">
+      <!-- Skill categories will be added here -->
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <h2 class="section-title"><span class="prompt-symbol">❯</span> experience --detailed</h2>
+    <div class="experience-list">
+      <!-- Experience entries will be added here -->
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title"><span class="prompt-symbol">❯</span> contact --init</h2>
+    <div class="contact-json">
+      <pre><code>{
+  "email": "ilkerhalil@gmail.com",
+  "linkedin": "linkedin.com/in/ilker-halil-turer",
+  "github": "github.com/ilkerhalil",
+  "location": "Izmir, Turkey",
+  "status": "open_to_work"
+}</code></pre>
+    </div>
+  </section>
+
+  <footer>
+    <span>~ $ exit</span>
+    <span>© 2025 İlker Halil Türer</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+- [ ] **Step 2: Save and verify HTML structure**
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add HTML skeleton with terminal aesthetic"
+```
+
+---
+
+### Task 2: CSS Styling - Base & Variables
+
+- [ ] **Step 1: Add CSS custom properties and base styles**
+
+```css
+:root {
+  /* Colors - Dark theme with gold accents */
+  --bg-primary: #0d0d12;
+  --bg-surface: #16161e;
+  --bg-surface-hover: #1e1e28;
+  --text-primary: #e8e6e3;
+  --text-secondary: #9a9a9a;
+  --accent: #d4a574;
+  --accent-hover: #e6b885;
+  --border: #2a2a35;
+
+  /* Syntax highlighting */
+  --syntax-blue: #7aa2f7;
+  --syntax-purple: #bb9af7;
+  --syntax-green: #9ece6a;
+  --syntax-gold: #e0af68;
+  --syntax-red: #f7768e;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'DM Sans', sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+}
+```
+
+- [ ] **Step 2: Add navigation styles**
+
+```css
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(13, 13, 18, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+nav.scrolled {
+  border-bottom-color: var(--border);
+}
+
+.nav-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+```
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add CSS variables and base styles"
+```
+
+---
+
+### Task 3: CSS - Hero Section
+
+- [ ] **Step 1: Add hero section styles**
+
+```css
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.terminal-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--syntax-green);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.prompt-symbol {
+  color: var(--syntax-purple);
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.hero-name {
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.hero-name .accent {
+  color: var(--accent);
+}
+
+.hero-role {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--syntax-blue);
+  margin-bottom: 1.5rem;
+}
+
+.hero-bio {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add hero section styles"
+```
+
+---
+
+### Task 4: CSS - Skills Section (Code Block Style)
+
+- [ ] **Step 1: Add skills section styles**
+
+```css
+#skills {
+  padding: 6rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skills-category {
+  margin-bottom: 2.5rem;
+}
+
+.skills-category-header {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--syntax-purple);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skills-category-header::before {
+  content: '// ';
+  color: var(--text-secondary);
+}
+
+.skills-code {
+  background: var(--bg-surface);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 2;
+}
+
+.skills-code .keyword {
+  color: var(--syntax-purple);
+}
+
+.skills-code .string {
+  color: var(--syntax-green);
+}
+
+.skills-code .tag {
+  color: var(--syntax-blue);
+}
+
+.skills-code .comment {
+  color: var(--text-secondary);
+}
+```
+
+- [ ] **Step 2: Add skill pills styling**
+
+```css
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.skill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.skill-tag.highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.skill-tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+```
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add skills section styles"
+```
+
+---
+
+### Task 5: CSS - Experience Section
+
+- [ ] **Step 1: Add experience section styles**
+
+```css
+#experience {
+  padding: 6rem 2rem;
+  background: var(--bg-surface);
+}
+
+#experience .section-title {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.experience-list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.experience-item {
+  margin-bottom: 3rem;
+}
+
+.exp-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.exp-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--syntax-green);
+}
+
+.exp-company {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+.exp-period {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.exp-title {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.exp-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.exp-description li {
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.exp-tag {
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--syntax-gold);
+  border: 1px solid var(--border);
+}
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add experience section styles"
+```
+
+---
+
+### Task 6: CSS - Contact Section & Footer
+
+- [ ] **Step 1: Add contact section styles**
+
+```css
+#contact {
+  padding: 6rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-json {
+  background: var(--bg-surface);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.contact-json pre {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 2;
+}
+
+.contact-json code {
+  color: var(--text-primary);
+}
+
+.contact-json .key {
+  color: var(--syntax-blue);
+}
+
+.contact-json .string {
+  color: var(--syntax-green);
+}
+
+.contact-links {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-link {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+}
+
+.contact-link:hover {
+  color: var(--accent);
+}
+
+.contact-link::before {
+  content: '>';
+  color: var(--syntax-purple);
+}
+```
+
+- [ ] **Step 2: Add footer styles**
+
+```css
+footer {
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+```
+
+- [ ] **Step 3: Add responsive styles**
+
+```css
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  #hero {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .hero-stats {
+    gap: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .exp-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+```
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add contact section and responsive styles"
+```
+
+---
+
+### Task 7: JavaScript - Animations
+
+- [ ] **Step 1: Add JavaScript for typing animation and scroll effects**
+
+```javascript
+// Terminal typing effect for hero prompt
+const terminalText = document.querySelector('.terminal-prompt .prompt-text');
+const originalText = terminalText.textContent;
+terminalText.textContent = '';
+
+let charIndex = 0;
+const typeSpeed = 50;
+
+function typeText() {
+  if (charIndex < originalText.length) {
+    terminalText.textContent += originalText.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeText, typeSpeed);
+  }
+}
+
+// Start typing after page load
+window.addEventListener('load', () => {
+  setTimeout(typeText, 500);
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  if (window.scrollY > 40) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add JavaScript for terminal typing animation"
+```
+
+---
+
+### Task 8: Content Population - Hero & Skills
+
+- [ ] **Step 1: Update hero section with full content**
+
+```html
+<section id="hero">
+  <div class="terminal-prompt">
+    <span class="prompt-symbol">❯</span>
+    <span class="prompt-text">Welcome to my portfolio</span>
+    <span class="cursor">_</span>
+  </div>
+  <h1 class="hero-name">İlker Halil<span class="accent">Türer</span></h1>
+  <p class="hero-role">❯ Senior Software Architect</p>
+  <p class="hero-bio">
+    14+ years architecting enterprise systems, leading high-performing teams, and building AI/ML solutions.
+    AWS Certified Solutions Architect with deep expertise in cloud infrastructure and modernizing legacy systems.
+    I bridge the gap between technical complexity and business value.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn btn-primary">$ get_in_touch</a>
+    <a href="#experience" class="btn btn-secondary">cat experience.txt</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-value">14+</span>
+      <span class="stat-label">years exp</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">20+</span>
+      <span class="stat-label">developers mentored</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">40%</span>
+      <span class="stat-label">cost reduction</span>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add skills section with code block style**
+
+```html
+<section id="skills">
+  <h2 class="section-title"><span class="prompt-symbol">❯</span> cat skills.json</h2>
+
+  <div class="skills-category">
+    <div class="skills-category-header">Backend & Languages</div>
+    <div class="skills-code">
+      <span class="keyword">const</span> <span class="tag">backend</span> = [<span class="string">".NET Core"</span>, <span class="string">"C# (12)"</span>, <span class="string">"Python"</span>, <span class="string">"FastAPI"</span>, <span class="string">"ASP.NET"</span>];
+    </div>
+    <div class="skill-tags">
+      <span class="skill-tag highlight">.NET Core</span>
+      <span class="skill-tag highlight">C#</span>
+      <span class="skill-tag highlight">Python</span>
+      <span class="skill-tag highlight">FastAPI</span>
+      <span class="skill-tag">ASP.NET</span>
+      <span class="skill-tag">Entity Framework</span>
+      <span class="skill-tag">SQLAlchemy</span>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <div class="skills-category-header">Cloud & Infrastructure</div>
+    <div class="skills-code">
+      <span class="keyword">const</span> <span class="tag">cloud</span> = [<span class="string">"AWS"</span>, <span class="string">"Kubernetes (CKA)"</span>, <span class="string">"Docker"</span>, <span class="string">"Terraform"</span>];
+    </div>
+    <div class="skill-tags">
+      <span class="skill-tag highlight">AWS</span>
+      <span class="skill-tag highlight">Kubernetes</span>
+      <span class="skill-tag highlight">Docker</span>
+      <span class="skill-tag highlight">Terraform</span>
+      <span class="skill-tag">EKS/ECS</span>
+      <span class="skill-tag">CI/CD</span>
+      <span class="skill-tag">Azure</span>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <div class="skills-category-header">AI & Machine Learning</div>
+    <div class="skills-code">
+      <span class="keyword">const</span> <span class="tag">ai_ml</span> = [<span class="string">"Ollama"</span>, <span class="string">"MCP Protocol"</span>, <span class="string">"RAG"</span>, <span class="string">"CatBoost"</span>];
+    </div>
+    <div class="skill-tags">
+      <span class="skill-tag highlight">Ollama</span>
+      <span class="skill-tag highlight">MCP Protocol</span>
+      <span class="skill-tag highlight">RAG/Embeddings</span>
+      <span class="skill-tag highlight">CatBoost/XGBoost</span>
+      <span class="skill-tag">SageMaker</span>
+      <span class="skill-tag">LightGBM</span>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <div class="skills-category-header">Data & Observability</div>
+    <div class="skill-tags">
+      <span class="skill-tag highlight">PostgreSQL</span>
+      <span class="skill-tag">Redis</span>
+      <span class="skill-tag">Elasticsearch</span>
+      <span class="skill-tag">MongoDB</span>
+      <span class="skill-tag">Grafana</span>
+      <span class="skill-tag">OpenTelemetry</span>
+      <span class="skill-tag">Prometheus</span>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: populate hero and skills content"
+```
+
+---
+
+### Task 9: Content Population - Experience
+
+- [ ] **Step 1: Add experience section with detailed entries**
+
+```html
+<section id="experience">
+  <h2 class="section-title"><span class="prompt-symbol">❯</span> ls -la experience/</h2>
+
+  <div class="experience-list">
+    <div class="experience-item">
+      <div class="exp-header">
+        <span class="exp-prompt">❯</span>
+        <span class="exp-company">Intertech</span>
+        <span class="exp-period">2020 — Present</span>
+      </div>
+      <h3 class="exp-title">Senior Software Architect</h3>
+      <ul class="exp-description">
+        <li>Architect and lead enterprise-scale cloud infrastructure on AWS EKS, managing multi-cluster deployments across production environments</li>
+        <li>Achieved <strong>40% infrastructure cost reduction</strong> through legacy system modernization, containerization, and optimized resource allocation</li>
+        <li>Led and mentored team of 20+ developers, establishing coding standards, conducting code reviews, and implementing CI/CD pipelines</li>
+        <li>Spearheaded AI/ML integration initiatives, implementing local LLM solutions with Ollama and building RAG pipelines for enterprise knowledge management</li>
+        <li>Established microservices architecture patterns, reducing deployment cycles from weeks to hours</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="exp-tag">.NET Core</span>
+        <span class="exp-tag">AWS EKS</span>
+        <span class="exp-tag">Kubernetes</span>
+        <span class="exp-tag">Python</span>
+        <span class="exp-tag">AI/ML</span>
+        <span class="exp-tag">Ollama</span>
+        <span class="exp-tag">RAG</span>
+      </div>
+    </div>
+
+    <div class="experience-item">
+      <div class="exp-header">
+        <span class="exp-prompt">❯</span>
+        <span class="exp-company">—</span>
+        <span class="exp-period">2016 — 2020</span>
+      </div>
+      <h3 class="exp-title">Lead Software Developer</h3>
+      <ul class="exp-description">
+        <li>Provided technical leadership across cross-functional teams, driving architectural decisions and best practices</li>
+        <li>Led migration from monolithic architecture to microservices, reducing coupling and enabling independent deployments</li>
+        <li>Built CI/CD pipelines from ground up, implementing automated testing, security scanning, and blue-green deployments</li>
+        <li>Implemented event-driven architecture using RabbitMQ for async communication between services</li>
+        <li>Introduced Domain-Driven Design principles, improving code organization and team collaboration</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="exp-tag">Microservices</span>
+        <span class="exp-tag">Docker</span>
+        <span class="exp-tag">RabbitMQ</span>
+        <span class="exp-tag">DDD</span>
+        <span class="exp-tag">CI/CD</span>
+      </div>
+    </div>
+
+    <div class="experience-item">
+      <div class="exp-header">
+        <span class="exp-prompt">❯</span>
+        <span class="exp-company">—</span>
+        <span class="exp-period">2010 — 2016</span>
+      </div>
+      <h3 class="exp-title">Senior Software Developer</h3>
+      <ul class="exp-description">
+        <li>Built scalable web applications and RESTful APIs in the .NET ecosystem</li>
+        <li>Developed deep expertise in cloud technologies, working extensively with Azure</li>
+        <li>Optimized database performance for high-traffic applications, implementing caching strategies and query optimization</li>
+        <li>Mentored junior developers and conducted technical workshops</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="exp-tag">ASP.NET</span>
+        <span class="exp-tag">SQL Server</span>
+        <span class="exp-tag">Azure</span>
+        <span class="exp-tag">Web API</span>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: populate experience section"
+```
+
+---
+
+### Task 10: Content Population - Contact
+
+- [ ] **Step 1: Add contact section**
+
+```html
+<section id="contact">
+  <h2 class="section-title"><span class="prompt-symbol">❯</span> ./contact.sh</h2>
+
+  <div class="contact-json">
+    <pre><code>{
+  <span class="key">"email"</span>: <span class="string">"ilkerhalil@gmail.com"</span>,
+  <span class="key">"linkedin"</span>: <span class="string">"linkedin.com/in/ilker-halil-turer"</span>,
+  <span class="key">"github"</span>: <span class="string">"github.com/ilkerhalil"</span>,
+  <span class="key">"location"</span>: <span class="string">"Izmir, Turkey"</span>,
+  <span class="key">"work_style"</span>: <span class="string">"Remote / Hybrid"</span>,
+  <span class="key">"status"</span>: <span class="string">"open_to_work"</span>,
+  <span class="key">"languages"</span>: [<span class="string">"Turkish"</span>, <span class="string">"English"</span>]
+}</code></pre>
+  </div>
+
+  <div class="contact-links">
+    <a href="mailto:ilkerhalil@gmail.com" class="contact-link">$ mailto:ilkerhalil@gmail.com</a>
+    <a href="https://linkedin.com/in/ilker-halil-turer" target="_blank" class="contact-link">$ curl -I https://linkedin.com/in/ilker-halil-turer</a>
+    <a href="https://github.com/ilkerhalil" target="_blank" class="contact-link">$ git clone https://github.com/ilkerhalil</a>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: populate contact section"
+```
+
+---
+
+### Task 11: Final Review & Testing
+
+- [ ] **Step 1: Review HTML for syntax errors**
+
+- [ ] **Step 2: Verify all fonts load correctly**
+
+- [ ] **Step 3: Test responsive layout at different breakpoints**
+
+- [ ] **Step 4: Test typing animation**
+
+- [ ] **Step 5: Final commit with all changes**
+
+```bash
+git add index.html
+git commit -m "feat: complete website redesign v2 with terminal aesthetic"
+```
+
+---
+
+**Plan complete!**
+
+The implementation includes:
+1. HTML structure with terminal/prompt aesthetic
+2. Dark theme CSS with gold accents
+3. Terminal typing animation in hero
+4. Skills displayed as code blocks
+5. Detailed experience section with bullet points
+6. Contact as JSON/terminal interface
+7. Fully responsive design
+
+Ready to execute?
