@@ -392,6 +392,75 @@
       border: 1px solid var(--border);
     }
 
+    /* Projects Section */
+    #projects {
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-title {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .project-title a:hover {
+      text-decoration: underline;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .project-link {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--syntax-green);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Contact Section */
     #contact {
       padding: 6rem 2rem;
@@ -507,6 +576,7 @@
     <a href="#" class="nav-prompt">~ $ whoami</a>
     <ul class="nav-links">
       <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
       <li><a href="#experience">experience</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -683,6 +753,37 @@
           <span class="exp-tag">Azure</span>
           <span class="exp-tag">Web API</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2 class="section-title"><span class="prompt-symbol">❯</span> ls -la projects/</h2>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3 class="project-title">🚗 <a href="https://github.com/ilkerhalil/vehicle-type-detection-api" target="_blank">Vehicle Type Detection API</a></h3>
+        <p class="project-desc">Production-ready REST API for real-time vehicle classification. FastAPI + Hexagonal Architecture, supports PyTorch (YOLOv8) and Intel OpenVINO engines. Docker-ready with Swagger/ReDoc docs.</p>
+        <a class="project-link" href="https://github.com/ilkerhalil/vehicle-type-detection-api" target="_blank">$ git clone vehicle-type-detection-api</a>
+      </div>
+
+      <div class="project-card">
+        <h3 class="project-title">📚 <a href="https://github.com/ilkerhalil/occt-rag-system-project" target="_blank">OCCT RAG System</a></h3>
+        <p class="project-desc">Local Retrieval-Augmented Generation system for Open CASCADE Technology docs &amp; code. ChromaDB vector search + Ollama local LLM inference for private, context-aware answers.</p>
+        <a class="project-link" href="https://github.com/ilkerhalil/occt-rag-system-project" target="_blank">$ git clone occt-rag-system-project</a>
+      </div>
+
+      <div class="project-card">
+        <h3 class="project-title">🧩 <a href="https://github.com/ilkerhalil/Extensions" target="_blank">Extensions (NuGet)</a></h3>
+        <p class="project-desc">Production-ready C# extension methods library — collections, strings, DateTime and more. Published on NuGet as Another.Extension.Methods with CI/CD and full test coverage.</p>
+        <a class="project-link" href="https://github.com/ilkerhalil/Extensions" target="_blank">$ dotnet add package Another.Extension.Methods</a>
+      </div>
+
+      <div class="project-card">
+        <h3 class="project-title">⚽ <a href="https://github.com/ilkerhalil/fifa-predictior" target="_blank">FIFA Match Predictor</a></h3>
+        <p class="project-desc">Machine learning model predicting FIFA match outcomes from team statistics and historical data. Built with scikit-learn and Python data science tooling.</p>
+        <a class="project-link" href="https://github.com/ilkerhalil/fifa-predictior" target="_blank">$ git clone fifa-predictior</a>
       </div>
     </div>
   </section>
